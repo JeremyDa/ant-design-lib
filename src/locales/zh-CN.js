@@ -13,6 +13,10 @@ import component from './zh-CN/component';
 
 export default {
 
+  'component.childrenTabs.closeCurrent':'关闭',
+  'component.childrenTabs.closeOthers':'关闭其他',
+  'component.childrenTabs.closeToRight':'关闭右侧',
+
   'navBar.lang': '语言',
   'layout.user.link.help': '帮助',
   'layout.user.link.privacy': '隐私',
