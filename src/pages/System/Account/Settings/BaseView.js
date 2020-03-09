@@ -1,4 +1,4 @@
-import { Button, Col, message, Row, SmartForm } from 'antdlib';
+import { Button, Col, message, Row, SmartForm,ajax } from 'antdlib';
 import { connect } from 'dva';
 import React, { Component } from 'react';
 import { domain } from '@/domain';
@@ -32,21 +32,15 @@ class BaseView extends Component {
     const {currentUser} = this.props;
     this.formComp.getForm().validateFieldsAndScroll((err, values) => {
       if (!err) {
-        const {
-          dispatch,
-        } = this.props;
-        dispatch({
-          type: 'content/fetch',
-          payload: {
+        ajax({
             url:'user.updateByPrimaryKeySelective',
             ...values,
             id: currentUser.id,
             avatar:this.state && this.state.avatar,
           },
-          callback: () => {
+          () => {
             message.success('修改成功');
             this.currentUser();
-          },
         });
       }
     });
