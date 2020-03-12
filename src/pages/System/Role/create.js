@@ -1,4 +1,4 @@
-import { Button, Col, message, Row, SmartForm } from 'antdlib';
+import { Button, Col, message, Row, SmartForm,ajax } from 'antdlib';
 import { connect } from 'dva';
 
 @connect(({ content, loading }) => ({
@@ -25,14 +25,10 @@ export default class Example extends React.PureComponent {
   }
 
   searchMenu = ()=> {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'content/fetch',
-      payload: {
-        url: `menu/role.selectByPrimaryKey`,
-        childName: 'children',
-        listKey: 'menuData',
-      }
+    ajax({
+      url: `menu/role.selectByPrimaryKey`,
+      childName: 'children',
+      listKey: 'menuData',
     });
   }
 
@@ -73,32 +69,29 @@ export default class Example extends React.PureComponent {
   }
 
   handleInsert = (fields) => {
-    const { dispatch,record } = this.props;
+    const { record } = this.props;
     const { menuidList } = this.state;
     if(!menuidList || menuidList.length == 0){
       message.warning('请选择菜单');
       return;
     }
 
-    dispatch({
-      type: 'content/fetch',
-      payload: {
-        ...fields,
-        id: record && record.id,
-        url: record && `role/role.updateByPrimaryKeySelective`|| `role/role.insertSelective`, // 特殊写法，一次请求是一个事务，根据后台url配置
-        menuidList,
-      },
-      callback: ()=>{
-        
-        message.success(record && '修改成功'||'创建成功');
-        this.formComp.resetFields();
-        this.setState({
-          menuidList: undefined,
-        });
+    ajax({
+      ...fields,
+      id: record && record.id,
+      url: record && `role/role.updateByPrimaryKeySelective`|| `role/role.insertSelective`, // 特殊写法，一次请求是一个事务，根据后台url配置
+      menuidList,
+    },
+    ()=>{
+      
+      message.success(record && '修改成功'||'创建成功');
+      this.formComp.resetFields();
+      this.setState({
+        menuidList: undefined,
+      });
 
-        const { onSuccess } = this.props;
-        onSuccess && onSuccess();
-      }
+      const { onSuccess } = this.props;
+      onSuccess && onSuccess();
     });
   }
 

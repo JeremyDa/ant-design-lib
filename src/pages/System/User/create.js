@@ -1,4 +1,4 @@
-import { Button, Col, message, Row, SmartForm } from 'antdlib';
+import { Button, Col, message, Row, SmartForm, ajax } from 'antdlib';
 import { connect } from 'dva';
 
 @connect(({ content, loading }) => ({
@@ -12,7 +12,7 @@ export default class Example extends React.PureComponent {
     const { record } = props;
     this.state = {
       confirmDirty: false,
-      formLayout: 'horizontal', // horizontal, inline
+      formLayout: 'horizontal', // horizontal, inline,vertical
       cols: 1,
       record: record
     }
@@ -25,15 +25,11 @@ export default class Example extends React.PureComponent {
   }
 
   searchRole = ()=> {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'content/fetch',
-      payload: {
+    ajax({
         url: `kv/role.selectByPrimaryKey`,
         key: 'id',       // key名称 
         value: 'name',   // value名称
         retKey: 'roleKV', // 表名称
-      }
     });
   }
 
@@ -110,17 +106,15 @@ export default class Example extends React.PureComponent {
   }
 
   handleInsert = (fields) => {
-    const { dispatch,record } = this.props;
+    const { record } = this.props;
 
-    dispatch({
-      type: 'content/fetch',
-      payload: {
+    ajax({
         ...fields,
         id: record && record.id,
         acountRef: fields.account,
         url: record && `user.updateByPrimaryKeySelective`|| `user.insertSelective`, // 通用写法
       },
-      callback: ()=>{
+      ()=>{
         
         message.success(record && '修改成功'||'创建成功');
         this.formComp.resetFields();
@@ -130,16 +124,27 @@ export default class Example extends React.PureComponent {
 
         const { onSuccess } = this.props;
         onSuccess && onSuccess();
-      }
     });
   }
 
   render(){
     const {formLayout,cols} = this.state;
 
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 5 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 14 },
+      }
+    }
+
     return (
       <div>
         <SmartForm 
+          formItemLayout={formItemLayout}
           onRef={this.refForm}
           onSubmit={this.handleSubmit}
           cols={cols}

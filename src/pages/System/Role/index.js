@@ -1,6 +1,6 @@
 
 
-import { Button, Card, Modal, Popconfirm,SmartTable } from 'antdlib';
+import { Button, Card, Modal, Popconfirm,SmartTable,ajax } from 'antdlib';
 import { connect } from 'dva';
 import React, { Fragment } from 'react';
 import Create from './create';
@@ -20,30 +20,22 @@ export default class Example extends React.PureComponent {
   }
 
   handleSearch = (params={})=> {
-    const {dispatch} = this.props;
-    dispatch({
-      type:'content/fetch',
-      payload:{
-        url:'role.selectByPrimaryKey',
-        listKey:'role',
-        ...params,
-      }
+    ajax({
+      url:'role.selectByPrimaryKey',
+      listKey:'role',
+      ...params,
     });
   }
 
   handleDelete = record => {
-    const { dispatch } = this.props;
 
     if (!record) return;
-    dispatch({
-      type: 'content/fetch',
-      payload: {
+    ajax({
         url: `role/role.deleteByPrimaryKey`,
         ...record
       },
-      callback: ()=>{
+      ()=>{
         this.handleSearch()
-      }
     });
   };
 

@@ -1,6 +1,6 @@
 
 
-import { Avatar, Button, Card, Modal, Popconfirm, SmartTable } from 'antdlib';
+import { Avatar, Button, Card, Modal, Popconfirm, SmartTable,ajax } from 'antdlib';
 import { connect } from 'dva';
 import React, { Fragment } from 'react';
 import defaultAvatar from '../../../../public/user.png';
@@ -22,17 +22,14 @@ export default class Example extends React.PureComponent {
   }
 
   handleSearch = (params={})=> {
-    const {dispatch} = this.props;
-    dispatch({
-      type:'content/fetch',
-      payload:{
+    ajax({
         url:'user.selectByPrimaryKey',
         listKey:'user',
         showAll:true,
         ...params
-      }
     });
 
+    const { dispatch } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
     });
@@ -40,31 +37,23 @@ export default class Example extends React.PureComponent {
   }
 
   searchRole = ()=> {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'content/fetch',
-      payload: {
+    ajax({
         url: `kv/role.selectByPrimaryKey`,
         key: 'id',       // key名称 
         value: 'name',   // value名称
         retKey: 'roleKV', // 表名称
-      }
     });
   }
 
   handleDelete = record => {
-    const { dispatch } = this.props;
 
     if (!record) return;
-    dispatch({
-      type: 'content/fetch',
-      payload: {
+    ajax({
         url: `user.deleteByPrimaryKey`,
         ...record
       },
-      callback: ()=>{
+      ()=>{
         this.handleSearch()
-      }
     });
   };
 
