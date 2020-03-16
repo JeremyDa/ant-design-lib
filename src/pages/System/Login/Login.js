@@ -1,6 +1,7 @@
 import { Alert } from 'antdlib';
 import { connect } from 'dva';
 import React, { Component } from 'react';
+import md5 from 'md5';
 import Login from '@/pages/System/Login/component';
 import styles from './Login.less';
 
@@ -27,7 +28,7 @@ class LoginPage extends Component {
         type: 'login/login',
         payload: {
           ...values,
-          // password: md5(values.password),
+          password: md5(values.password),
           type,
         },
       });

@@ -26,6 +26,7 @@ export default class Example extends React.PureComponent {
         url:'user.selectByPrimaryKey',
         listKey:'user',
         showAll:true,
+        roleid: 3,
         ...params
     });
 

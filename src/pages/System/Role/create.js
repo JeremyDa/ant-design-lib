@@ -11,7 +11,7 @@ export default class Example extends React.PureComponent {
     super(props);
     const { record } = props;
     this.state = {
-      menuidList: record && record.menuidList.split(',')||[],
+      menuidList: record && record.menuidList && record.menuidList.split(',')||[],
       formLayout: 'horizontal', // horizontal, inline
       cols: 1,
     }

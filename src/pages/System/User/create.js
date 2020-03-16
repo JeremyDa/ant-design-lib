@@ -1,5 +1,6 @@
 import { Button, Col, message, Row, SmartForm, ajax } from 'antdlib';
 import { connect } from 'dva';
+import md5 from 'md5';
 
 @connect(({ content, loading }) => ({
   content,
@@ -110,6 +111,7 @@ export default class Example extends React.PureComponent {
 
     ajax({
         ...fields,
+        password: md5(fields.password),
         id: record && record.id,
         acountRef: fields.account,
         url: record && `user.updateByPrimaryKeySelective`|| `user.insertSelective`, // 通用写法
