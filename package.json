@@ -27,7 +27,6 @@
     "@babel/runtime": "^7.3.1",
     "antd": "^3.26.11",
     "antdlib": "^1.0.7",
-    "axios": "^0.19.2",
     "bizcharts": "^3.5.6",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "braft-editor": "^2.2.7",
