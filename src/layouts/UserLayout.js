@@ -1,5 +1,6 @@
-import { Icon } from 'antd';
-import { getPageTitle,GlobalFooter,SelectLang } from 'antdlib';
+import { Icon, Button } from 'antd';
+import { getPageTitle,GlobalFooter,SelectLang,notification,ajax } from 'antdlib';
+
 import { connect } from 'dva';
 import React, { Component, Fragment } from 'react';
 import DocumentTitle from 'react-document-title';
@@ -12,6 +13,7 @@ import { menu, title } from '../defaultSettings';
 import SelectLangStyles from '@/pages/Style/SelectLang/index.less';
 import HeaderDropdownStyles from '@/pages/Style/HeaderDropdown/index.less';
 import {multiLanguage} from '@/defaultSettings';
+import { externalDomain } from '@/domain';
 
 const links = [
   {
@@ -31,8 +33,16 @@ const links = [
   },
 ];
 
+const copyright = (
+  <Fragment>
+    Copyright <Icon type="copyright" /> 2020 江苏国光信息产业股份有限公司
+  </Fragment>
+);
+
 class UserLayout extends Component {
+
   componentDidMount() {
+
     const {
       dispatch,
       route: { routes, authority },
@@ -40,6 +50,44 @@ class UserLayout extends Component {
     dispatch({
       type: 'menu/getMenuData',
       payload: { routes, authority },
+    });
+
+    this.getVersion();
+  }
+
+  getVersion = () => {
+    ajax({
+      fullUrl: `${externalDomain}/version.newest`,
+    },
+    ()=>{
+      const { newest } = this.props.content;
+      if(localStorage.getItem('version') !== newest){
+        this.upgrade(newest);
+      }
+    }
+    );
+  }
+
+  upgrade = (newest) => {
+    const key = `open${Date.now()}`;
+    const btn = (
+      <Button
+        type="primary"
+        onClick={() => {
+          notification.close(key);
+          window.location.reload(true);
+          localStorage.setItem('version',newest);
+        }}
+      >
+        {formatMessage({ id: 'app.pwa.serviceworker.updated.ok' })}
+      </Button>
+    );
+    notification.open({
+      message: formatMessage({ id: 'app.pwa.serviceworker.updated' }),
+      description: formatMessage({ id: 'app.pwa.serviceworker.updated.hint' }),
+      btn,
+      key,
+      onClose: async () => {},
     });
   }
 
@@ -75,7 +123,8 @@ class UserLayout extends Component {
   }
 }
 
-export default connect(({ menu: menuModel }) => ({
+export default connect(({ menu: menuModel, content }) => ({
   menuData: menuModel.menuData,
   breadcrumbNameMap: menuModel.breadcrumbNameMap,
+  content,
 }))(UserLayout);
