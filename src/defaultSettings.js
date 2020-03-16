@@ -19,4 +19,5 @@ module.exports = {
   useTabs: true,
   multiLanguage: false,
   // navMode: 'index',
+  expire: 3600, // 登录超时时间,单位:秒,默认为:3600
 };
