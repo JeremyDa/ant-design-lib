@@ -13,7 +13,7 @@ import { menu, title } from '../defaultSettings';
 import SelectLangStyles from '@/pages/Style/SelectLang/index.less';
 import HeaderDropdownStyles from '@/pages/Style/HeaderDropdown/index.less';
 import {multiLanguage} from '@/defaultSettings';
-import { externalDomain } from '@/domain';
+import { domain } from '@/domain';
 
 const links = [
   {
@@ -57,7 +57,7 @@ class UserLayout extends Component {
 
   getVersion = () => {
     ajax({
-      fullUrl: `${externalDomain}/version.newest`,
+      fullUrl: `${domain}/version.newest`,
     },
     ()=>{
       const { newest } = this.props.content;

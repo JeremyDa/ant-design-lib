@@ -71,7 +71,7 @@ class LoginPage extends Component {
             <Password
               name="password"
               defaultValue=""
-              placeholder='密码'
+              placeholder='密码: '
               rules={[
                 {
                   required: true,
