@@ -110,7 +110,7 @@ export default class Example extends React.PureComponent {
       <Card>
         <Button onClick={()=>this.sendMessage(JSON.stringify({message:'111',from:localStorage.getItem('account'),to:'admin'}))}>发送</Button>
         <Button onClick={()=>this.close()}>关闭</Button>
-        {message && message.map(item=><div>{item.message}</div>)}
+        {message && message.map(item=><div>{`${item.from }向${ item.to }${'发送了'}${item.message||''},${item.messageType}`}</div>)}
       </Card>
     );
   }
