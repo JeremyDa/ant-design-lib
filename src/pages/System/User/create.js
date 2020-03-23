@@ -1,6 +1,7 @@
 import { Button, Col, message, Row, SmartForm, ajax } from 'antdlib';
 import { connect } from 'dva';
 import md5 from 'md5';
+import React from 'react';
 
 @connect(({ content, loading }) => ({
   content,
@@ -15,7 +16,7 @@ export default class Example extends React.PureComponent {
       confirmDirty: false,
       formLayout: 'horizontal', // horizontal, inline,vertical
       cols: 1,
-      record: record
+      record
     }
   }
 

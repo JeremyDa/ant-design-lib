@@ -36,4 +36,10 @@ module.exports = {
   settings: {
     polyfills: ['fetch', 'promises', 'url'],
   },
+  parserOptions: {
+    parser: 'babel-eslint',
+    "ecmaFeatures": {
+    "legacyDecorators": true
+    }
+  }
 };

@@ -84,7 +84,8 @@ export default class Example extends React.PureComponent {
     return (
       <Card>
         <Button type="primary" style={{marginBottom:'8px'}} onClick={()=>this.setState({visible:true,record:undefined})}>创建</Button>
-        <SmartTable bordered
+        <SmartTable
+          bordered
           loading={this.props.loading}
           data={this.props.content.user||{}}
           columns={this.getColumns()}
@@ -96,8 +97,8 @@ export default class Example extends React.PureComponent {
           onCancel={()=>this.setState({visible:false})}
           width='40%'
           footer={null}
-          destroyOnClose={true}
-          >
+          destroyOnClose
+        >
           <Create record={this.state.record} onSuccess={()=>{this.setState({visible:false});this.handleSearch();}} />
         </Modal>
       </Card>
