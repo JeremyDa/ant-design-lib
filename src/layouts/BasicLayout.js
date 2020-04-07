@@ -28,6 +28,14 @@ import sidemenu from '../../public/sidemenu.svg';
 import topmenu from '../../public/topmenu.svg';
 
 class BasicLayout extends React.Component {
+
+  componentWillMount(){
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'user/fetchCurrent',
+    });
+  }
+
   componentDidMount() {
     const {
       dispatch,
@@ -49,9 +57,6 @@ class BasicLayout extends React.Component {
         ? JSON.parse(localStorage.getItem('menu'))[0]
         : 
         route;
-    dispatch({
-      type: 'user/fetchCurrent',
-    });
     dispatch({
       type: 'setting/getSetting',
     });
