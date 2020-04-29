@@ -62,10 +62,11 @@ class UserLayout extends Component {
     ()=>{
       const { newest } = this.props.content;
       if(localStorage.getItem('version') !== newest){
-        this.upgrade(newest);
+        // this.upgrade(newest);
+        window.location.reload(true);
+        localStorage.setItem('version',newest);
       }
-    }
-    );
+    });
   }
 
   upgrade = (newest) => {
