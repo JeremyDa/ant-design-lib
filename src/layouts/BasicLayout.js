@@ -2,8 +2,9 @@ import { connect } from 'dva';
 import React from 'react';
 import Media from 'react-media';
 import router from 'umi/router';
-import {BasicLayoutComponent} from 'antdlib';
+import {BasicLayoutComponent,ajax} from 'antdlib';
 import defaultSettings from '@/defaultSettings';
+import { domain } from '@/domain';
 import BasicLayoutStyles from '@/pages/Style/BasicLayout/BasicLayout.less';
 import ChildrenTabsStyles from '@/pages/Style/ChildrenTabs/index.less';
 import GlobalFooterStyles from '@/pages/Style/GlobalFooter/index.less';
@@ -30,10 +31,18 @@ import topmenu from '../../public/topmenu.svg';
 class BasicLayout extends React.Component {
 
   componentWillMount(){
+
+    // if(!this.props.login.token){
+    //   router.push('/user/login'); 
+    //   return;
+    // }
+
     const { dispatch } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
     });
+
+    this.getVersion();
   }
 
   componentDidMount() {
@@ -63,6 +72,20 @@ class BasicLayout extends React.Component {
     dispatch({
       type: 'menu/getMenuData',
       payload: { routes, authority },
+    });
+  }
+
+
+  getVersion = () => {
+    ajax({
+      fullUrl: `${domain}/version.newest`,
+    },
+    ()=>{
+      const { newest } = this.props.content;
+      if(localStorage.getItem('version') !== newest){
+        window.location.reload(true);
+        localStorage.setItem('version',newest);
+      }
     });
   }
 
@@ -152,13 +175,15 @@ class BasicLayout extends React.Component {
   }
 }
 
-export default connect(({ global, setting, menu: menuModel }) => ({
+export default connect(({ global, setting, menu: menuModel, login,content }) => ({
   collapsed: global.collapsed,
   layout: setting.layout,
   menuData: menuModel.menuData,
   breadcrumbNameMap: menuModel.breadcrumbNameMap,
   ...setting,
   originalMenuData: menuModel.originalMenuData,
+  login,
+  content,
 }))(props => (
   <Media query="(max-width: 599px)">
     {isMobile => <BasicLayout {...props} isMobile={isMobile} />}
