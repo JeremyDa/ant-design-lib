@@ -41,6 +41,7 @@ export default class Example extends React.PureComponent {
         type:'tree',
         field:'menuidList',
         label:'菜单',
+        checkable:true,
         checkedKeys:this.state.menuidList||[],
         onCheck:(checkedKeys, info)=>this.onCheck(checkedKeys, info),
         data:menuData

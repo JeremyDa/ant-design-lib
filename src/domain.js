@@ -1,5 +1,6 @@
 const domain = 
-'http://localhost:8020'; // 本地开发用
+'http://localhost:8020';
+// 'http://www.ggzzrj.cn:16893'; // 本地开发用
 // '';  // 生产打包用
 
 const externalDomain = 'http://localhost:8020';
