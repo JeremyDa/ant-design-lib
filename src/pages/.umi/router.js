@@ -125,6 +125,20 @@ const routes = [
             exact: true,
           },
           {
+            path: '/system/websocket',
+            name: 'websocket',
+            icon: '',
+            component: __IS_BROWSER
+              ? _dvaDynamic({
+                  component: () =>
+                    import(/* webpackChunkName: "p__System__Websocket__index" */ '../System/Websocket/index'),
+                  LoadingComponent: require('/Users/Jeremy/project/ant-design-lib/src/layouts/PageLoading')
+                    .default,
+                })
+              : require('../System/Websocket/index').default,
+            exact: true,
+          },
+          {
             component: () =>
               React.createElement(
                 require('/Users/Jeremy/project/ant-design-lib/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
