@@ -1,11 +1,9 @@
+import { message } from 'antd';
 import React from 'react';
-import { notification, Button, message } from 'antd';
 import { formatMessage } from 'umi/locale';
 import defaultSettings from './defaultSettings';
 
 window.React = React;
-
-
 
 const { pwa } = defaultSettings;
 // if pwa is true
@@ -40,24 +38,6 @@ if (pwa) {
       window.location.reload(true);
       return true;
     };
-    const key = `open${Date.now()}`;
-    const btn = (
-      <Button
-        type="primary"
-        onClick={() => {
-          notification.close(key);
-          reloadSW();
-        }}
-      >
-        {formatMessage({ id: 'app.pwa.serviceworker.updated.ok' })}
-      </Button>
-    );
-    notification.open({
-      message: formatMessage({ id: 'app.pwa.serviceworker.updated' }),
-      description: formatMessage({ id: 'app.pwa.serviceworker.updated.hint' }),
-      btn,
-      key,
-      onClose: async () => {},
-    });
+    reloadSW();
   });
 }

@@ -1,8 +1,8 @@
+import { ajax, BasicLayoutComponent } from 'antdlib';
 import { connect } from 'dva';
 import React from 'react';
 import Media from 'react-media';
 import router from 'umi/router';
-import {BasicLayoutComponent,ajax} from 'antdlib';
 import defaultSettings from '@/defaultSettings';
 import { domain } from '@/domain';
 import BasicLayoutStyles from '@/pages/Style/BasicLayout/BasicLayout.less';
@@ -17,16 +17,16 @@ import SettingDrawerStyles from '@/pages/Style/SettingDrawer/index.less';
 import SettingDrawerThemeColorStyles from '@/pages/Style/SettingDrawer/ThemeColor.less';
 import SiderMenuStyles from '@/pages/Style/SiderMenu/index.less';
 import TopNavHeaderStyles from '@/pages/Style/TopNavHeader/index.less';
-import logo from '../../public/logo.png';
-import user from '../../public/user.png';
-import notification from '../../public/notification.svg';
-import message from '../../public/message.svg';
-import event from '../../public/event.svg';
-import RightContent from './RightContent';
 import dark from '../../public/dark.svg';
+import event from '../../public/event.svg';
 import light from '../../public/light.svg';
+import logo from '../../public/logo.png';
+import message from '../../public/message.svg';
+import notification from '../../public/notification.svg';
 import sidemenu from '../../public/sidemenu.svg';
 import topmenu from '../../public/topmenu.svg';
+import user from '../../public/user.png';
+import RightContent from './RightContent';
 
 class BasicLayout extends React.Component {
 
