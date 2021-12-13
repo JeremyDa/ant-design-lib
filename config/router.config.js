@@ -41,12 +41,6 @@ export default [
             icon: '',
             component: './System/User',
           },
-          {
-            path: '/system/websocket',
-            name: 'websocket',
-            icon: '',
-            component: './System/Websocket/index',
-          },
         ],
       },
       
