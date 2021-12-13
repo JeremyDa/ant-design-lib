@@ -73,6 +73,10 @@ class BasicLayout extends React.Component {
       type: 'menu/getMenuData',
       payload: { routes, authority },
     });
+    dispatch({
+      type: 'menu/getOriginalMenuData',
+      payload: { routes}
+    });
   }
 
 
