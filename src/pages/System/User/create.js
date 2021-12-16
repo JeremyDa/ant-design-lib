@@ -112,7 +112,7 @@ export default class Example extends React.PureComponent {
 
     ajax({
         ...fields,
-        password: md5(fields.password),
+        password: fields.password && md5(fields.password) || null,
         id: record && record.id,
         acountRef: fields.account,
         url: record && `user.updateByPrimaryKeySelective`|| `user.insertSelective`, // 通用写法
@@ -121,9 +121,6 @@ export default class Example extends React.PureComponent {
         
         message.success(record && '修改成功'||'创建成功');
         this.formComp.resetFields();
-        this.setState({
-          menuidList: undefined,
-        });
 
         const { onSuccess } = this.props;
         onSuccess && onSuccess();

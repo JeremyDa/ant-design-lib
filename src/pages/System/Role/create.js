@@ -1,5 +1,6 @@
-import { Button, Col, message, Row, SmartForm,ajax } from 'antdlib';
+import { ajax, Button, Col, message, Row, SmartForm } from 'antdlib';
 import { connect } from 'dva';
+import React from 'react';
 
 @connect(({ content, loading }) => ({
   content,
@@ -19,8 +20,6 @@ export default class Example extends React.PureComponent {
 
   componentDidMount(){
     this.searchMenu();
-
-    console.log('record:',this.props.record);
     this.formComp.setFieldsValue({...this.props.record});
   }
 
@@ -72,7 +71,7 @@ export default class Example extends React.PureComponent {
   handleInsert = (fields) => {
     const { record } = this.props;
     const { menuidList } = this.state;
-    if(!menuidList || menuidList.length == 0){
+    if(!menuidList || menuidList.length === 0){
       message.warning('请选择菜单');
       return;
     }
@@ -85,7 +84,7 @@ export default class Example extends React.PureComponent {
     },
     ()=>{
       
-      message.success(record && '修改成功'||'创建成功');
+      message.success(record && '修改成功'||'新建成功');
       this.formComp.resetFields();
       this.setState({
         menuidList: undefined,

@@ -25,8 +25,6 @@ export default class Example extends React.PureComponent {
     ajax({
         url:'user.selectByPrimaryKey',
         listKey:'user',
-        showAll:true,
-        roleid: 3,
         ...params
     });
 
@@ -83,7 +81,7 @@ export default class Example extends React.PureComponent {
   render(){
     return (
       <Card>
-        <Button type="primary" style={{marginBottom:'8px'}} onClick={()=>this.setState({visible:true,record:undefined})}>创建</Button>
+        <Button icon='plus' style={{marginBottom:'8px'}} onClick={()=>this.setState({visible:true,record:undefined})}>新建</Button>
         <SmartTable
           bordered
           loading={this.props.loading}
