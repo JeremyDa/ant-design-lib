@@ -32,17 +32,11 @@ class BasicLayout extends React.Component {
 
   componentWillMount(){
 
-    // if(!this.props.login.token){
-    //   router.push('/user/login'); 
-    //   return;
-    // }
-
     const { dispatch } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
     });
 
-    this.getVersion();
   }
 
   componentDidMount() {
@@ -76,20 +70,6 @@ class BasicLayout extends React.Component {
     dispatch({
       type: 'menu/getOriginalMenuData',
       payload: { routes}
-    });
-  }
-
-
-  getVersion = () => {
-    ajax({
-      fullUrl: `${domain}/version.newest`,
-    },
-    ()=>{
-      const { newest } = this.props.content;
-      if(localStorage.getItem('version') !== newest){
-        window.location.reload(true);
-        localStorage.setItem('version',newest);
-      }
     });
   }
 

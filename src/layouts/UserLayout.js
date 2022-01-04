@@ -25,25 +25,6 @@ class UserLayout extends Component {
       type: 'menu/getMenuData',
       payload: { routes, authority },
     });
-
-    this.getVersion();
-  }
-
-  getVersion = () => {
-    ajax({
-      fullUrl: `${domain}/version.newest`,
-    },
-    ()=>{
-      const { newest } = this.props.content;
-      if(localStorage.getItem('version') !== newest){
-        this.upgrade(newest);
-      }
-    });
-  }
-
-  upgrade = (newest) => {
-    window.location.reload(true);
-    localStorage.setItem('version',newest);
   }
 
   render() {
